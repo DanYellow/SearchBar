@@ -18,7 +18,6 @@
 @property (nonatomic, strong) UISearchController *searchController;
 
 @property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic,assign) BOOL searchBarIsFirstResponder;
 @property (nonatomic,assign) BOOL viewIsPushed;
 
 - (void) animateNavigationBar;

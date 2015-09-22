@@ -19,8 +19,6 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.5];
-
-    self.searchBarIsFirstResponder = NO;
     
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 44.0)];
     self.searchBar.showsCancelButton = YES;
@@ -29,15 +27,16 @@
     self.searchBar.placeholder = @"Rechercher";
     self.searchBar.backgroundColor = [UIColor clearColor];
     self.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
-    searchBarView.backgroundColor = [UIColor clearColor];
-    //    searchBarView.autoresizingMask = 0;
-//    searchBar.delegate = self;
-    [searchBarView addSubview:self.searchBar];
-    self.navigationItem.titleView = searchBarView;
+    
+//    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
+//    searchBarView.backgroundColor = [UIColor clearColor];
+//    [searchBarView addSubview:self.searchBar];
+
+    // Set the searchbar in the navigation bar
+    self.navigationItem.titleView = self.searchBar;
     self.navigationItem.titleView.backgroundColor = [UIColor clearColor];
-    [self.searchBar becomeFirstResponder];
-    [self animateNavigationBar];
+
+//    [self animateNavigationBar];
     
 
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -45,20 +44,15 @@
     btn.frame = CGRectMake(0, 90, 60, 60);
     [btn addTarget:self action:@selector(section) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:btn];
-    
-//    [self.navigationController setNavigationBarHidden: YES animated:NO];
 }
 
 - (void) animateNavigationBar
 {
-    
-    
     CATransition* transition = [CATransition animation];
     transition.duration = 0.25;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
-    transition.subtype = kCATransitionFromBottom; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
-//    transition.delegate = self;
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromBottom;
     [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
 }
 
@@ -75,11 +69,10 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     if(!self.viewIsPushed) {
-        
-        [self.navigationController setNavigationBarHidden:NO animated:animated];
         [self.searchBar becomeFirstResponder];
         [self animateNavigationBar];
-        self.searchBarIsFirstResponder = YES;
+        
+        [self.navigationController setNavigationBarHidden:NO animated:animated];
     }
  
     self.viewIsPushed = NO;
@@ -89,9 +82,19 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self.navigationController.view removeFromSuperview];
+    [UIView transitionWithView:self.view
+                      duration:UINavigationControllerHideShowBarDuration
+                       options:UIViewAnimationOptionCurveEaseOut
+                    animations:^{
+                        [self.navigationController setNavigationBarHidden:YES animated:YES];
+                    }
+                    completion:^(BOOL finished){
+                        [self.navigationController.view removeFromSuperview];
+                    }];
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    [self.navigationController.view removeFromSuperview];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
