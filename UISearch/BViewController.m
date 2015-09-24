@@ -23,13 +23,14 @@
     
 
     
-//    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
-//    searchBarView.backgroundColor = [UIColor clearColor];
-//    [searchBarView addSubview:self.searchBar];
+//    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 410.0, 44.0)];
+//    searchBarView.backgroundColor = [UIColor colorWithRed:(2.0/255.0f) green:(17.0/255.0f) blue:(28.0/255.0f) alpha:1.0f];
+//    [self.view addSubview:searchBarView];
 
     // Set the searchbar in the navigation bar
 //
     self.navigationItem.titleView.backgroundColor = [UIColor clearColor];
+    
     
     self.resultsTableView = [UITableViewController new];
     self.resultsTableView.tableView.frame = CGRectMake(0, 0, 320, 500);
@@ -54,6 +55,10 @@
     
     [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
+    
+    UITextField *textField = [self.searchBar valueForKey:@"_searchField"];
+    textField.clearButtonMode = UITextFieldViewModeAlways;
+    //    textField.textColor = [UIColor whiteColor];
 
 //    UIView *containerSearch = [[UIView alloc] initWithFrame: self.searchBar.frame];
 //    [containerSearch addSubview:self.searchBar];
@@ -127,9 +132,9 @@
         
         [self.navigationController setNavigationBarHidden:NO animated:animated];
     } else {
-        [self.searchBar becomeFirstResponder];
+//        [self.searchBar becomeFirstResponder];
     }
- 
+
     self.viewIsPushed = NO;
 }
 
@@ -139,8 +144,28 @@
     
     CustomSearchViewController *A = [CustomSearchViewController new];
     self.viewIsPushed = YES;
+//    A.view.alpha = 0;
     [self.navigationController pushViewController:A animated:YES];
+//    [UIView animateWithDuration:0.5
+//                     animations:^{A.view.alpha = 1.0;}];
+    
+//    [UIView beginAnimations:nil context:NULL];
+//    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+//    [UIView setAnimationDuration:0.75];
+   
+//    [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.navigationController.view cache:NO];
+//    [UIView commitAnimations];
+    
+    CATransition* transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+    transition.subtype = kCATransitionFromRight; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+//    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+//     [self.navigationController pushViewController:A animated:NO];
+//    [[self navigationController] popViewControllerAnimated:NO];
 }
+
 
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar

@@ -43,6 +43,8 @@
 {
     [self.navigationController.view addSubview:self.nav.view];
     [self.nav didMoveToParentViewController:self];
+    
+//    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
