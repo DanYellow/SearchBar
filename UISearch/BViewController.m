@@ -19,32 +19,91 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.5];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 44.0)];
-    self.searchBar.showsCancelButton = YES;
-    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
-    self.searchBar.delegate = self;
-    self.searchBar.placeholder = @"Rechercher";
-    self.searchBar.backgroundColor = [UIColor clearColor];
-    self.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+
     
 //    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
 //    searchBarView.backgroundColor = [UIColor clearColor];
 //    [searchBarView addSubview:self.searchBar];
 
     // Set the searchbar in the navigation bar
-    self.navigationItem.titleView = self.searchBar;
+//
     self.navigationItem.titleView.backgroundColor = [UIColor clearColor];
+    
+    self.resultsTableView = [UITableViewController new];
+    self.resultsTableView.tableView.frame = CGRectMake(0, 0, 320, 500);
+    self.resultsTableView.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.resultsTableView.tableView.dataSource = self;
+    self.resultsTableView.tableView.delegate = self;
+    self.resultsTableView.tableView.backgroundColor = [UIColor clearColor];
+    self.resultsTableView.tableView.tableFooterView = [UIView new];
+    [self.view addSubview:self.resultsTableView.tableView];
+    
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 44.0)];
+    self.searchBar.showsCancelButton = YES;
+    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    self.searchBar.delegate = self;
 
+//    self.searchBar.barTintColor = [UIColor colorWithRed:(2.0/255.0f) green:(17.0/255.0f) blue:(28.0/255.0f) alpha:1.0f];
+    self.searchBar.tintColor = [UIColor whiteColor];
+    self.searchBar.placeholder = @"Rechercher";
+    self.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
+    self.searchBar.backgroundColor = [UIColor clearColor];
+    self.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
+
+//    UIView *containerSearch = [[UIView alloc] initWithFrame: self.searchBar.frame];
+//    [containerSearch addSubview:self.searchBar];
+    
+    self.navigationItem.titleView = self.searchBar;
 //    [self animateNavigationBar];
     
-
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-    btn.backgroundColor = [UIColor redColor];
-    btn.frame = CGRectMake(0, 90, 60, 60);
-    [btn addTarget:self action:@selector(section) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:btn];
+    self.datas = @[@"Bulbizarre", @"Herbizarre", @"Florizarre"];
 }
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.datas count];
+}
+
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *aCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (aCell == nil) {
+        aCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    
+    aCell.textLabel.text = [self.datas objectAtIndex:indexPath.row];
+    
+    return aCell;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    self.datas = @[@"Bulbizarre", @"Herbizarre", @"Florizarre"];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(self BEGINSWITH[c] %@)", searchText];
+    [self.datas filteredArrayUsingPredicate:predicate];
+    
+    self.datas = [self.datas filteredArrayUsingPredicate:predicate];
+    
+    [self.resultsTableView.tableView reloadData];
+}
+
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+//    selectedTextFieldTag = textField.tag;
+    return NO;
+}
+
+
 
 - (void) animateNavigationBar
 {
@@ -56,28 +115,32 @@
     [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
 }
 
-- (BOOL)becomeFirstResponder
-{
-    BOOL returnValue = [super becomeFirstResponder];
-    if (returnValue) {
-//        [self animateNavigationBar];
-    }
-    return returnValue;
-}
 
 
 - (void) viewWillAppear:(BOOL)animated
 {
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:(2.0/255.0f) green:(17.0/255.0f) blue:(28.0/255.0f) alpha:.85f];
+
     if(!self.viewIsPushed) {
         [self.searchBar becomeFirstResponder];
         [self animateNavigationBar];
         
         [self.navigationController setNavigationBarHidden:NO animated:animated];
+    } else {
+        [self.searchBar becomeFirstResponder];
     }
  
     self.viewIsPushed = NO;
 }
 
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    [self.searchBar resignFirstResponder];
+    
+    CustomSearchViewController *A = [CustomSearchViewController new];
+    self.viewIsPushed = YES;
+    [self.navigationController pushViewController:A animated:YES];
+}
 
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -103,11 +166,7 @@
 
 - (void) section
 {
-    [self.searchBar resignFirstResponder];
-
-    CustomSearchViewController *A = [CustomSearchViewController new];
-    self.viewIsPushed = YES;
-    [self.navigationController pushViewController:A animated:YES];
+    
 }
 
 @end

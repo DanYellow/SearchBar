@@ -27,6 +27,8 @@
     self.A.viewIsPushed = NO;
 
     self.nav = [[UINavigationController alloc] initWithRootViewController:self.A];
+    self.nav.navigationBar.barTintColor = [UIColor colorWithRed:(2.0/255.0f) green:(17.0/255.0f) blue:(28.0/255.0f) alpha:.85f];
+    self.nav.navigationBar.tintColor = [UIColor whiteColor];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
     btn.backgroundColor = [UIColor purpleColor];

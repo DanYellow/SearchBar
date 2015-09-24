@@ -12,13 +12,16 @@
 
 
 
-@interface BViewController : UIViewController <UISearchBarDelegate>
+@interface BViewController : UIViewController <UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableViewController *A;
-@property (nonatomic, strong) UISearchController *searchController;
-
 @property (nonatomic, strong) UISearchBar *searchBar;
+
+@property (strong, nonatomic) UITableViewController *resultsTableView;
+
 @property (nonatomic,assign) BOOL viewIsPushed;
+
+@property (nonatomic, strong) NSArray *datas;
 
 - (void) animateNavigationBar;
 
