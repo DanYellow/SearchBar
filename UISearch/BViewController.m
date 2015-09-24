@@ -52,8 +52,10 @@
     self.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
     self.searchBar.backgroundColor = [UIColor clearColor];
     self.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+
     
-    [[UIBarButtonItem appearanceWhenContainedIn: [UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
+//    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setStyle:UIBarButtonSystemItemCancel];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
     
     UITextField *textField = [self.searchBar valueForKey:@"_searchField"];
@@ -133,6 +135,8 @@
         [self.navigationController setNavigationBarHidden:NO animated:animated];
     } else {
 //        [self.searchBar becomeFirstResponder];
+// If user allowed to push so he write some content then we rearmed the cancel button
+        [self rearmedCancelButton];
     }
 
     self.viewIsPushed = NO;
@@ -166,15 +170,33 @@
 //    [[self navigationController] popViewControllerAnimated:NO];
 }
 
+- (void) scrollViewWillBeginDragging:(UITableView *)tableView
+{
+    // When the user starts to scroll we hide the keyboard
+    [self.searchBar resignFirstResponder];
+    [self rearmedCancelButton];
+}
 
+- (void) rearmedCancelButton
+{
+    for(UIButton *subview in [[[self.searchBar subviews] objectAtIndex:0] subviews])
+    {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            [subview setEnabled:YES];
+        }
+    }
+}
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
+    self.navigationController.navigationBar.hidden = YES;
+    
     [UIView transitionWithView:self.view
                       duration:UINavigationControllerHideShowBarDuration
                        options:UIViewAnimationOptionCurveEaseOut
                     animations:^{
                         [self.navigationController setNavigationBarHidden:YES animated:YES];
+                        self.navigationController.view.alpha = 0;
                     }
                     completion:^(BOOL finished){
                         [self.navigationController.view removeFromSuperview];

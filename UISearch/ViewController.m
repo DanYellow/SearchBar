@@ -41,8 +41,10 @@
 
 - (void) displaySearchBar
 {
+    self.nav.view.alpha = 1.0f;
     [self.navigationController.view addSubview:self.nav.view];
     [self.nav didMoveToParentViewController:self];
+    
     
 //    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
