@@ -559,9 +559,9 @@
     
     CustomSearchViewController *A = [CustomSearchViewController new];
     self.viewIsPushed = YES;
-//    A.view.alpha = 0;
+////    A.view.alpha = 0;
     [self.navigationController pushViewController:A animated:YES];
-//    [UIView animateWithDuration:0.5
+////    [UIView animateWithDuration:0.5
 //                     animations:^{A.view.alpha = 1.0;}];
     
 //    [UIView beginAnimations:nil context:NULL];
@@ -571,11 +571,11 @@
 //    [UIView setAnimationTransition:UIViewAnimationTransitionCurlDown forView:self.navigationController.view cache:NO];
 //    [UIView commitAnimations];
     
-    CATransition* transition = [CATransition animation];
-    transition.duration = 0.5;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
-    transition.subtype = kCATransitionFromRight; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+//    CATransition* transition = [CATransition animation];
+//    transition.duration = 0.5;
+//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//    transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
+//    transition.subtype = kCATransitionFromRight; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
 //    [self.navigationController.view.layer addAnimation:transition forKey:nil];
 //     [self.navigationController pushViewController:A animated:NO];
 //    [[self navigationController] popViewControllerAnimated:NO];
@@ -603,6 +603,8 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
+    [self.searchBar resignFirstResponder];
+    
     self.navigationController.navigationBar.hidden = YES;
     
     [UIView transitionWithView:self.view
@@ -611,6 +613,9 @@
                     animations:^{
                         [self.navigationController setNavigationBarHidden:YES animated:YES];
                         self.navigationController.view.alpha = 0;
+                        
+//                        self.navigationController.navigationBar.alpha = 0;
+//                        self.view.alpha = 0;
                     }
                     completion:^(BOOL finished){
                         [self.navigationController.view removeFromSuperview];
