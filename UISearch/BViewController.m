@@ -30,23 +30,38 @@
     // Set the searchbar in the navigation bar
 //
     self.navigationItem.titleView.backgroundColor = [UIColor clearColor];
-    
-    
+
     self.resultsTableView = [UITableViewController new];
-    self.resultsTableView.tableView.frame = CGRectMake(0, 0, 320, 500);
-    self.resultsTableView.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.resultsTableView.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.resultsTableView.tableView.frame = self.view.bounds;
+//    self.resultsTableView.tableView.frame = CGRectMake(0, 0, CGRectGetWidth(self.resultsTableView.tableView.frame), CGRectGetHeight(self.resultsTableView.tableView.frame));
+    NSLog(@"%f", CGRectGetHeight(self.resultsTableView.tableView.frame));
     self.resultsTableView.tableView.dataSource = self;
     self.resultsTableView.tableView.delegate = self;
     self.resultsTableView.tableView.backgroundColor = [UIColor clearColor];
     self.resultsTableView.tableView.tableFooterView = [UIView new];
     [self.view addSubview:self.resultsTableView.tableView];
     
+    UILabel *messageLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,
+                                                                    self.resultsTableView.tableView.bounds.size.width,
+                                                                    self.resultsTableView.tableView.bounds.size.height)];
+    //set the message
+    messageLbl.text = @"No data is avaible";
+    //center the text
+    messageLbl.textAlignment = NSTextAlignmentCenter;
+    //auto size the text
+    [messageLbl sizeToFit];
+    
+    
+    self.resultsTableView.tableView.backgroundView = messageLbl;
+    self.resultsTableView.tableView.backgroundView.hidden = YES;
+    
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 44.0)];
     self.searchBar.showsCancelButton = YES;
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchBar.delegate = self;
 
-//    self.searchBar.barTintColor = [UIColor colorWithRed:(2.0/255.0f) green:(17.0/255.0f) blue:(28.0/255.0f) alpha:1.0f];
+    self.searchBar.barTintColor = [UIColor colorWithRed:(2.0/255.0f) green:(17.0/255.0f) blue:(28.0/255.0f) alpha:1.0f];
     self.searchBar.tintColor = [UIColor whiteColor];
     self.searchBar.placeholder = @"Rechercher";
     self.searchBar.keyboardAppearance = UIKeyboardAppearanceDark;
@@ -58,6 +73,7 @@
 //    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setStyle:UIBarButtonSystemItemCancel];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
     
+    
     UITextField *textField = [self.searchBar valueForKey:@"_searchField"];
     textField.clearButtonMode = UITextFieldViewModeAlways;
     //    textField.textColor = [UIColor whiteColor];
@@ -68,12 +84,22 @@
     self.navigationItem.titleView = self.searchBar;
 //    [self animateNavigationBar];
     
-    self.datas = @[@"Bulbizarre", @"Herbizarre", @"Florizarre"];
+//    self.datas = @[@"Bulbizarre", @"Herbizarre", @"Florizarre"];
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.datas count];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if ([self.datas count] == 0 && ![self.searchBar.text isEqualToString:@""]) {
+        self.resultsTableView.tableView.backgroundView.hidden = NO;
+    } else {
+        self.resultsTableView.tableView.backgroundView.hidden = YES;
+    }
+    return 1;
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,7 +119,392 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    self.datas = @[@"Bulbizarre", @"Herbizarre", @"Florizarre"];
+    self.datas = @[@"Bulbasaur",
+                   @"Ivysaur",
+                   @"Venusaur",
+                   @"Charmander",
+                   @"Charmeleon",
+                   @"Charizard",
+                   @"Squirtle",
+                   @"Wartortle",
+                   @"Blastoise",
+                   @"Caterpie",
+                   @"Metapod",
+                   @"Butterfree",
+                   @"Weedle",
+                   @"Kakuna",
+                   @"Beedrill",
+                   @"Pidgey",
+                   @"Pidgeotto",
+                   @"Pidgeot",
+                   @"Rattata",
+                   @"Raticate",
+                   @"Spearow",
+                   @"Fearow",
+                   @"Ekans",
+                   @"Arbok",
+                   @"Pikachu",
+                   @"Raichu",
+                   @"Sandshrew",
+                   @"Sandslash",
+                   @"Nidoran♀",
+                   @"Nidorina",
+                   @"Nidoqueen",
+                   @"Nidoran♂",
+                   @"Nidorino",
+                   @"Nidoking",
+                   @"Clefairy",
+                   @"Clefable",
+                   @"Vulpix",
+                   @"Ninetales",
+                   @"Jigglypuff",
+                   @"Wigglytuff",
+                   @"Zubat",
+                   @"Golbat",
+                   @"Oddish",
+                   @"Gloom",
+                   @"Vileplume",
+                   @"Paras",
+                   @"Parasect",
+                   @"Venonat",
+                   @"Venomoth",
+                   @"Diglett",
+                   @"Dugtrio",
+                   @"Meowth",
+                   @"Persian",
+                   @"Psyduck",
+                   @"Golduck",
+                   @"Mankey",
+                   @"Primeape",
+                   @"Growlithe",
+                   @"Arcanine",
+                   @"Poliwag",
+                   @"Poliwhirl",
+                   @"Poliwrath",
+                   @"Abra",
+                   @"Kadabra",
+                   @"Alakazam",
+                   @"Machop",
+                   @"Machoke",
+                   @"Machamp",
+                   @"Bellsprout",
+                   @"Weepinbell",
+                   @"Victreebel",
+                   @"Tentacool",
+                   @"Tentacruel",
+                   @"Geodude",
+                   @"Graveler",
+                   @"Golem",
+                   @"Ponyta",
+                   @"Rapidash",
+                   @"Slowpoke",
+                   @"Slowbro",
+                   @"Magnemite",
+                   @"Magneton",
+                   @"Farfetch'd",
+                   @"Doduo",
+                   @"Dodrio",
+                   @"Seel",
+                   @"Dewgong",
+                   @"Grimer",
+                   @"Muk",
+                   @"Shellder",
+                   @"Cloyster",
+                   @"Gastly",
+                   @"Haunter",
+                   @"Gengar",
+                   @"Onix",
+                   @"Drowzee",
+                   @"Hypno",
+                   @"Krabby",
+                   @"Kingler",
+                   @"Voltorb",
+                   @"Electrode",
+                   @"Exeggcute",
+                   @"Exeggutor",
+                   @"Cubone",
+                   @"Marowak",
+                   @"Hitmonlee",
+                   @"Hitmonchan",
+                   @"Lickitung",
+                   @"Koffing",
+                   @"Weezing",
+                   @"Rhyhorn",
+                   @"Rhydon",
+                   @"Chansey",
+                   @"Tangela",
+                   @"Kangaskhan",
+                   @"Horsea",
+                   @"Seadra",
+                   @"Goldeen",
+                   @"Seaking",
+                   @"Staryu",
+                   @"Starmie",
+                   @"Mr. Mime",
+                   @"Scyther",
+                   @"Jynx",
+                   @"Electabuzz",
+                   @"Magmar",
+                   @"Pinsir",
+                   @"Tauros",
+                   @"Magikarp",
+                   @"Gyarados",
+                   @"Lapras",
+                   @"Ditto",
+                   @"Eevee",
+                   @"Vaporeon",
+                   @"Jolteon",
+                   @"Flareon",
+                   @"Porygon",
+                   @"Omanyte",
+                   @"Omastar",
+                   @"Kabuto",
+                   @"Kabutops",
+                   @"Aerodactyl",
+                   @"Snorlax",
+                   @"Articuno",
+                   @"Zapdos",
+                   @"Moltres",
+                   @"Dratini",
+                   @"Dragonair",
+                   @"Dragonite",
+                   @"Mewtwo",
+                   @"Mew",
+                   @"Chikorita",
+                   @"Bayleef",
+                   @"Meganium",
+                   @"Cyndaquil",
+                   @"Quilava",
+                   @"Typhlosion",
+                   @"Totodile",
+                   @"Croconaw",
+                   @"Feraligatr",
+                   @"Sentret",
+                   @"Furret",
+                   @"Hoothoot",
+                   @"Noctowl",
+                   @"Ledyba",
+                   @"Ledian",
+                   @"Spinarak",
+                   @"Ariados",
+                   @"Crobat",
+                   @"Chinchou",
+                   @"Lanturn",
+                   @"Pichu",
+                   @"Cleffa",
+                   @"Igglybuff",
+                   @"Togepi",
+                   @"Togetic",
+                   @"Natu",
+                   @"Xatu",
+                   @"Mareep",
+                   @"Flaaffy",
+                   @"Ampharos",
+                   @"Bellossom",
+                   @"Marill",
+                   @"Azumarill",
+                   @"Sudowoodo",
+                   @"Politoed",
+                   @"Hoppip",
+                   @"Skiploom",
+                   @"Jumpluff",
+                   @"Aipom",
+                   @"Sunkern",
+                   @"Sunflora",
+                   @"Yanma",
+                   @"Wooper",
+                   @"Quagsire",
+                   @"Espeon",
+                   @"Umbreon",
+                   @"Murkrow",
+                   @"Slowking",
+                   @"Misdreavus",
+                   @"Unown",
+                   @"Wobbuffet",
+                   @"Girafarig",
+                   @"Pineco",
+                   @"Forretress",
+                   @"Dunsparce",
+                   @"Gligar",
+                   @"Steelix",
+                   @"Snubbull",
+                   @"Granbull",
+                   @"Qwilfish",
+                   @"Scizor",
+                   @"Shuckle",
+                   @"Heracross",
+                   @"Sneasel",
+                   @"Teddiursa",
+                   @"Ursaring",
+                   @"Slugma",
+                   @"Magcargo",
+                   @"Swinub",
+                   @"Piloswine",
+                   @"Corsola",
+                   @"Remoraid",
+                   @"Octillery",
+                   @"Delibird",
+                   @"Mantine",
+                   @"Skarmory",
+                   @"Houndour",
+                   @"Houndoom",
+                   @"Kingdra",
+                   @"Phanpy",
+                   @"Donphan",
+                   @"Porygon2",
+                   @"Stantler",
+                   @"Smeargle",
+                   @"Tyrogue",
+                   @"Hitmontop",
+                   @"Smoochum",
+                   @"Elekid",
+                   @"Magby",
+                   @"Miltank",
+                   @"Blissey",
+                   @"Raikou",
+                   @"Entei",
+                   @"Suicune",
+                   @"Larvitar",
+                   @"Pupitar",
+                   @"Tyranitar",
+                   @"Lugia",
+                   @"Ho-oh",
+                   @"Celebi",
+                   @"Treecko",
+                   @"Grovyle",
+                   @"Sceptile",
+                   @"Torchic",
+                   @"Combusken",
+                   @"Blaziken",
+                   @"Mudkip",
+                   @"Marshtomp",
+                   @"Swampert",
+                   @"Poochyena",
+                   @"Mightyena",
+                   @"Zigzagoon",
+                   @"Linoone",
+                   @"Wurmple",
+                   @"Silcoon",
+                   @"Beautifly",
+                   @"Cascoon",
+                   @"Dustox",
+                   @"Lotad",
+                   @"Lombre",
+                   @"Ludicolo",
+                   @"Seedot",
+                   @"Nuzleaf",
+                   @"Shiftry",
+                   @"Taillow",
+                   @"Swellow",
+                   @"Wingull",
+                   @"Pelipper",
+                   @"Ralts",
+                   @"Kirlia",
+                   @"Gardevoir",
+                   @"Surskit",
+                   @"Masquerain",
+                   @"Shroomish",
+                   @"Breloom",
+                   @"Slakoth",
+                   @"Vigoroth",
+                   @"Slaking",
+                   @"Nincada",
+                   @"Ninjask",
+                   @"Shedinja",
+                   @"Whismur",
+                   @"Loudred",
+                   @"Exploud",
+                   @"Makuhita",
+                   @"Hariyama",
+                   @"Azurill",
+                   @"Nosepass",
+                   @"Skitty",
+                   @"Delcatty",
+                   @"Sableye",
+                   @"Mawile",
+                   @"Aron",
+                   @"Lairon",
+                   @"Aggron",
+                   @"Meditite",
+                   @"Medicham",
+                   @"Electrike",
+                   @"Manectric",
+                   @"Plusle",
+                   @"Minun",
+                   @"Volbeat",
+                   @"Illumise",
+                   @"Roselia",
+                   @"Gulpin",
+                   @"Swalot",
+                   @"Carvanha",
+                   @"Sharpedo",
+                   @"Wailmer",
+                   @"Wailord",
+                   @"Numel",
+                   @"Camerupt",
+                   @"Torkoal",
+                   @"Spoink",
+                   @"Grumpig",
+                   @"Spinda",
+                   @"Trapinch",
+                   @"Vibrava",
+                   @"Flygon",
+                   @"Cacnea",
+                   @"Cacturne",
+                   @"Swablu",
+                   @"Altaria",
+                   @"Zangoose",
+                   @"Seviper",
+                   @"Lunatone",
+                   @"Solrock",
+                   @"Barboach",
+                   @"Whiscash",
+                   @"Corphish",
+                   @"Crawdaunt",
+                   @"Baltoy",
+                   @"Claydol",
+                   @"Lileep",
+                   @"Cradily",
+                   @"Anorith",
+                   @"Armaldo",
+                   @"Feebas",
+                   @"Milotic",
+                   @"Castform",
+                   @"Kecleon",
+                   @"Shuppet",
+                   @"Banette",
+                   @"Duskull",
+                   @"Dusclops",
+                   @"Tropius",
+                   @"Chimecho",
+                   @"Absol",
+                   @"Wynaut",
+                   @"Snorunt",
+                   @"Glalie",
+                   @"Spheal",
+                   @"Sealeo",
+                   @"Walrein",
+                   @"Clamperl",
+                   @"Huntail",
+                   @"Gorebyss",
+                   @"Relicanth",
+                   @"Luvdisc",
+                   @"Bagon",
+                   @"Shelgon",
+                   @"Salamence",
+                   @"Beldum",
+                   @"Metang",
+                   @"Metagross",
+                   @"Regirock",
+                   @"Regice",
+                   @"Registeel",
+                   @"Latias",
+                   @"Latios",
+                   @"Kyogre",
+                   @"Groudon",
+                   @"Rayquaza",
+                   @"Jirachi",
+                   @"Deoxys"];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(self BEGINSWITH[c] %@)", searchText];
     [self.datas filteredArrayUsingPredicate:predicate];
@@ -142,7 +553,7 @@
     self.viewIsPushed = NO;
 }
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.searchBar resignFirstResponder];
     
@@ -173,8 +584,11 @@
 - (void) scrollViewWillBeginDragging:(UITableView *)tableView
 {
     // When the user starts to scroll we hide the keyboard
-    [self.searchBar resignFirstResponder];
-    [self rearmedCancelButton];
+    // only if the
+    if (![self.searchBar.text isEqualToString:@""]) {
+        [self.searchBar resignFirstResponder];
+        [self rearmedCancelButton];
+    }
 }
 
 - (void) rearmedCancelButton
