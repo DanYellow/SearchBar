@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "ViewController.h"
-#import "BViewController.h"
+//#import "BViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

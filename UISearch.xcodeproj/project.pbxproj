@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A83C15A1BB732A00056E724 /* ResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A83C1591BB732A00056E724 /* ResultsTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		D7F94D491BAC12F700E46227 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F94D481BAC12F700E46227 /* main.m */; };
 		D7F94D4C1BAC12F700E46227 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F94D4B1BAC12F700E46227 /* AppDelegate.m */; };
 		D7F94D4F1BAC12F700E46227 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F94D4E1BAC12F700E46227 /* ViewController.m */; };
@@ -15,7 +16,6 @@
 		D7F94D571BAC12F700E46227 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7F94D551BAC12F700E46227 /* LaunchScreen.xib */; };
 		D7F94D631BAC12F700E46227 /* UISearchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F94D621BAC12F700E46227 /* UISearchTests.m */; };
 		D7F94D6E1BAC13E500E46227 /* CustomSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F94D6D1BAC13E500E46227 /* CustomSearchViewController.m */; };
-		D7F94D711BAC3D9C00E46227 /* BViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7F94D701BAC3D9C00E46227 /* BViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A83C1581BB732A00056E724 /* ResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsTableViewController.h; sourceTree = "<group>"; };
+		1A83C1591BB732A00056E724 /* ResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsTableViewController.m; sourceTree = "<group>"; };
 		D7F94D431BAC12F700E46227 /* UISearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UISearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F94D471BAC12F700E46227 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7F94D481BAC12F700E46227 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -44,8 +46,6 @@
 		D7F94D621BAC12F700E46227 /* UISearchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UISearchTests.m; sourceTree = "<group>"; };
 		D7F94D6C1BAC13E500E46227 /* CustomSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSearchViewController.h; sourceTree = "<group>"; };
 		D7F94D6D1BAC13E500E46227 /* CustomSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSearchViewController.m; sourceTree = "<group>"; };
-		D7F94D6F1BAC3D9C00E46227 /* BViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BViewController.h; sourceTree = "<group>"; };
-		D7F94D701BAC3D9C00E46227 /* BViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,10 +91,10 @@
 				D7F94D4B1BAC12F700E46227 /* AppDelegate.m */,
 				D7F94D4D1BAC12F700E46227 /* ViewController.h */,
 				D7F94D4E1BAC12F700E46227 /* ViewController.m */,
-				D7F94D6F1BAC3D9C00E46227 /* BViewController.h */,
-				D7F94D701BAC3D9C00E46227 /* BViewController.m */,
 				D7F94D6C1BAC13E500E46227 /* CustomSearchViewController.h */,
 				D7F94D6D1BAC13E500E46227 /* CustomSearchViewController.m */,
+				1A83C1581BB732A00056E724 /* ResultsTableViewController.h */,
+				1A83C1591BB732A00056E724 /* ResultsTableViewController.m */,
 				D7F94D501BAC12F700E46227 /* Main.storyboard */,
 				D7F94D531BAC12F700E46227 /* Images.xcassets */,
 				D7F94D551BAC12F700E46227 /* LaunchScreen.xib */,
@@ -173,7 +173,7 @@
 		D7F94D3B1BAC12F700E46227 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Danielo Jean-Louis";
 				TargetAttributes = {
 					D7F94D421BAC12F700E46227 = {
@@ -232,8 +232,8 @@
 				D7F94D4F1BAC12F700E46227 /* ViewController.m in Sources */,
 				D7F94D4C1BAC12F700E46227 /* AppDelegate.m in Sources */,
 				D7F94D491BAC12F700E46227 /* main.m in Sources */,
-				D7F94D711BAC3D9C00E46227 /* BViewController.m in Sources */,
 				D7F94D6E1BAC13E500E46227 /* CustomSearchViewController.m in Sources */,
+				1A83C15A1BB732A00056E724 /* ResultsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +295,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -309,7 +310,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -345,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -360,6 +361,7 @@
 				INFOPLIST_FILE = UISearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hello.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -371,6 +373,7 @@
 				INFOPLIST_FILE = UISearch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hello.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -389,6 +392,7 @@
 				);
 				INFOPLIST_FILE = UISearchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hello.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UISearch.app/UISearch";
 			};
@@ -404,6 +408,7 @@
 				);
 				INFOPLIST_FILE = UISearchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hello.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UISearch.app/UISearch";
 			};

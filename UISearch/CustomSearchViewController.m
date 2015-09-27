@@ -19,20 +19,35 @@
     
     if (self.isMovingFromParentViewController) {
 //        CATransition* transition = [CATransition animation];
-//        transition.duration = 0.5;
+//        transition.duration = .2;
 //        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
 //        transition.type = kCATransitionPush; //kCATransitionMoveIn; //, kCATransitionPush, kCATransitionReveal, kCATransitionFade
 //        transition.subtype = kCATransitionFromLeft; //kCATransitionFromLeft, kCATransitionFromRight, kCATransitionFromTop, kCATransitionFromBottom
+//        transition.removedOnCompletion = YES;
 //        [self.navigationController.view.layer addAnimation:transition forKey:nil];
 //        [self.navigationController pushViewController:self.parentViewController animated:NO];
+        
+        
     }
 }
+
+//
+//- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+//{
+//    [self.navigationController.navigationBar.layer removeAllAnimations];
+//    [self.navigationController.view.layer removeAllAnimations];
+//}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor redColor];
+    self.navigationItem.titleView.backgroundColor = [UIColor clearColor];
+//    self.navigationController.navigationBarHidden=YES;
+    self.parentViewController.navigationController.navigationBarHidden = YES;
+    self.definesPresentationContext = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,14 +56,5 @@
 }
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
